@@ -1,5 +1,10 @@
 ## Changelog
 
+### Update 11-01-2018 V3.4 Coloring
+1. Perubahan tampilan dashboard. Traffic TX/RX lingkaran dan Hotspot Log berwarna
+2. Perubahan warna ui dengan tema green transparan.
+3. Perubahan tampilan hotspot log dan tabel form.
+
 ### Update 10-30-2018 V3.4
 1. Penambahan cek spasi di nama user profile.
 2. Penambahan user profile dan comment di Report. Yang perlu dilakukan adalah update user profile dari Mikhmon, buka user profile yang ingin diupdate kemudian klik Save. 
