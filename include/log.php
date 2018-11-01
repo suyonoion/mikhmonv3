@@ -40,15 +40,21 @@ if(!isset($_SESSION["mikhmon"])){
      <input id="filterTable" type="text" class="form-control" placeholder="Search.."> 
 </div>
 <div style="padding: 5px; max-height: 75vh;" class="mr-t-10 overflow">
-<table class="table table-sm table-bordered table-hover" id="dataTable" >
+<table class="table table-sm" id="dataTable" >
 	<tbody>
 <?php
-	for ($i=0; $i<$TotalReg; $i++){
+$cari_masuk = "trying to log in";
+$cari_keluar = "logged out";
+$cari_gagal_masuk = "login failed";
+for ($i=0; $i<$TotalReg; $i++){
 	echo "<tr>";
-	if(substr($log[$i]['message'], 0,2) == "->"){  
+	echo "<td style='width:25px;white-space:nowrap;'><i>";
+			if (strpos($log[$i]['message'], $cari_masuk) !== false) {echo "<img src='/img/masuk.png' width='25px' height='25px' style='vertical-align: middle;'/><span style='vertical-align: middle;'> Masuk</span>";} 
+			if (strpos($log[$i]['message'], $cari_keluar) !== false){echo "<img src='/img/keluar.png' width='25px' height='25px' style='vertical-align: middle;'/><span style='vertical-align: middle;'> Keluar</span>";}
+			if (strpos($log[$i]['message'], $cari_gagal_masuk) !== false){echo "<img src='/img/gagal.png' width='25px' height='25px' style='vertical-align: middle;'/><span style='vertical-align: middle;'> Gagal</span>";}
+	echo "</i></td>";
 	echo "<td>" . $log[$i]['time'];echo "</td>";
 	echo "<td>" . $log[$i]['message'];echo "</td>";
-	}else{}
 	echo "</tr>";
 	}
 ?>
