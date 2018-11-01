@@ -1,6 +1,6 @@
 ## Changelog
 
-### Update 11-01-2018 V3.4 Coloring
+### Update 11-01-2018 V3.4 MikhmonGreen oleh suyonoion
 1. Perubahan tampilan dashboard. Traffic TX/RX lingkaran dan Hotspot Log berwarna
 2. Perubahan warna ui dengan tema green transparan.
 3. Perubahan tampilan hotspot log dan tabel form.
