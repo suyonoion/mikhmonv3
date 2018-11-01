@@ -115,11 +115,20 @@ $routerboard = $getrouterboard[0];
         <div class="box-group">
           <div class="box-group-icon"><i class="fa fa-server"></i></div>
               <div class="box-group-area">
-                <span >
-        CPU Load <?php echo $resource['cpu-load']?>%<br/>
-        Free Memory <?php echo formatBytes($resource['free-memory'],2)?><br/>
-        Free HDD <?php echo formatBytes($resource['free-hdd-space'],2)?>
-                </span>
+			  <div class="baris">
+  <div class="kolom" style="font-size:11px;">
+  <ul style="padding-left:10px;">
+    <li>Free Memory <?php echo formatBytes($resource['free-memory'],2)?></li>
+	<li>Free HDD <?php echo formatBytes($resource['free-hdd-space'],2)?></li>
+	</ul>
+  </div>
+  <div class="kolom" align="center">
+  <div style="border-left:1px solid #fff;margin-left:7px">
+    <div align="center">CPU Load</div>
+    <div align="center"><span style="font-size:36px;font-weight:bold;"><?php echo $resource['cpu-load']?><span style="font-size:12px;"> %</span> </span></div>
+	</div>
+  </div>
+</div>
                 </div>
               </div>
             </div>
@@ -197,19 +206,115 @@ $routerboard = $getrouterboard[0];
                   <div class="row">
                     <div class="col-12">
                       <div class="box bmh-75 box-bordered">
-                        <div style="margin-bottom: 10px;"><h3><?php echo $interface;?></h3></div>
-                          <div class="progress">
-                            <div class="progress-bar" style="width: <?php echo $getinterfacetraffic[0]['tx-bits-per-second']/$maxtx*100;?>%"></div>
-                          </div>
-                            <span class="progress-description">
-                              Tx : <?php echo $tx." / ".$mxtx;?>
-                            </span>
-                          <div class="progress">
-                            <div class="progress-bar" style="width: <?php echo $getinterfacetraffic[0]['rx-bits-per-second']/$maxrx*100;?>%"></div>
-                            </div>
-                            <span class="progress-description">
-                              Rx : <?php echo $rx." / ".$mxrx;?>
-                            </span>
+                        <div style="margin-bottom: 10px;"><h3><b>Interface  :  </b><font color="#33cc33"> <?php echo $interface;?></font></h3><hr>
+						<div class="baris">
+<div class="kolom"><span>TX</span></div>
+<div class="kolom"><span>RX</span></div>
+</div>
+						</div>
+                            
+<center>
+<div class="baris">
+<div class="kolom">					
+<!-- coba lingkaran -->
+<div id="trafik-tx" data-percent="<?php echo $getinterfacetraffic[0]['tx-bits-per-second']/$maxtx*100;?>">
+<p class="progress-description"><?php echo $tx." /<br> ".$mxtx;?></p>
+<p style="font-size: 17px;color:#ffc107;"><b>
+<?php $txpersen = $getinterfacetraffic[0]['tx-bits-per-second']/$maxtx*100;echo round($txpersen);?> %</b></p>
+</div>
+<script type="text/javascript">
+var el = document.getElementById('trafik-tx'); // get canvas
+
+var options = {
+    percent:  el.getAttribute('data-percent') || 25,
+    size: el.getAttribute('data-size') || 150,
+    lineWidth: el.getAttribute('data-line') || 10,
+    rotate: el.getAttribute('data-rotate') || 0
+}
+
+var canvas = document.createElement('canvas');
+    
+if (typeof(G_vmlCanvasManager) !== 'undefined') {
+    G_vmlCanvasManager.initElement(canvas);
+}
+
+var ctx = canvas.getContext('2d');
+canvas.width = canvas.height = options.size;
+
+el.appendChild(canvas);
+
+ctx.translate(options.size / 2, options.size / 2); // change center
+ctx.rotate((-1 / 2 + options.rotate / 180) * Math.PI); // rotate -90 deg
+
+//imd = ctx.getImageData(0, 0, 240, 240);
+var radius = (options.size - options.lineWidth) / 2;
+
+var drawCircle = function(color, lineWidth, percent) {
+		percent = Math.min(Math.max(0, percent || 1), 1);
+		ctx.beginPath();
+		ctx.arc(0, 0, radius, 0, Math.PI * 2 * percent, false);
+		ctx.strokeStyle = color;
+        ctx.lineCap = 'round'; // butt, round or square
+		ctx.lineWidth = lineWidth
+		ctx.stroke();
+};
+
+drawCircle('#ffffff9e', options.lineWidth, 100 / 100);
+drawCircle('#33cc33', options.lineWidth, options.percent / 100);
+</script>
+</div>
+<div class="kolom">
+<!-- coba lingkaran -->
+<div id="trafik-rx" data-percent="<?php echo $getinterfacetraffic[0]['rx-bits-per-second']/$maxrx*100;?>">
+<p class="progress-description"><?php echo $rx." /<br> ".$mxrx;?></p>
+<p style="font-size: 17px;color:#ffc107;"><b>
+<?php $rxpersen = $getinterfacetraffic[0]['rx-bits-per-second']/$maxrx*100;echo round($rxpersen);?> %</b></p>
+</div>
+<script type="text/javascript">
+var el = document.getElementById('trafik-rx'); // get canvas
+
+var options = {
+    percent:  el.getAttribute('data-percent') || 25,
+    size: el.getAttribute('data-size') || 150,
+    lineWidth: el.getAttribute('data-line') || 10,
+    rotate: el.getAttribute('data-rotate') || 0
+}
+
+var canvas = document.createElement('canvas');
+    
+if (typeof(G_vmlCanvasManager) !== 'undefined') {
+    G_vmlCanvasManager.initElement(canvas);
+}
+
+var ctx = canvas.getContext('2d');
+canvas.width = canvas.height = options.size;
+
+el.appendChild(canvas);
+
+ctx.translate(options.size / 2, options.size / 2); // change center
+ctx.rotate((-1 / 2 + options.rotate / 180) * Math.PI); // rotate -90 deg
+
+//imd = ctx.getImageData(0, 0, 240, 240);
+var radius = (options.size - options.lineWidth) / 2;
+
+var drawCircle = function(color, lineWidth, percent) {
+		percent = Math.min(Math.max(0, percent || 1), 1);
+		ctx.beginPath();
+		ctx.arc(0, 0, radius, 0, Math.PI * 2 * percent, false);
+		ctx.strokeStyle = color;
+        ctx.lineCap = 'round'; // butt, round or square
+		ctx.lineWidth = lineWidth
+		ctx.stroke();
+};
+
+drawCircle('#ffffff9e', options.lineWidth, 100 / 100);
+drawCircle('#33cc33', options.lineWidth, options.percent / 100);
+</script>
+</div>
+</div>
+</center>
+
+
                           </div>
                         </div>
                       </div>
@@ -221,7 +326,17 @@ $routerboard = $getrouterboard[0];
               <div class="card-header">
                 <h3><i class="fa fa-align-justify"></i> Hotspot Log</h3></div>
                   <div class="card-body">
-                    <textarea class="bg-dark" style="overflow: auto; width:100%; height:395px; font-size:11px; border:0;" disabled>
+                    <div class="bg-dark" style="overflow: auto; width:100%; height:395px; font-size:11px; border:0;" disabled>
+<!-- Start Rainbow Table -->				
+	<table>
+		<thead>
+			<tr>
+				<th style="text-align:center;">Notif</th>
+				<th style="text-align:center;">Times</th>
+				<th style="text-align:center;">Messages</th>
+			</tr>
+		</thead>
+		<tbody>
 <?php
 // move hotspot log to disk
   $getlogging = $API->comm("/system/logging/print", array(
@@ -235,13 +350,26 @@ $routerboard = $getrouterboard[0];
     "?topics" => "hotspot,info,debug",));
   $log = array_reverse($getlog);
   $TotalReg = count($getlog);
-  for ($i=0; $i<$TotalReg; $i++){
-  if(substr($log[$i]['message'], 0,2) == "->"){  
-  echo "".$log[$i]['time'] ." " . $log[$i]['message']."&#13;&#10;";
-  }else{};
-  }
+
+$cari_masuk = "trying to log in";
+$cari_keluar = "logged out";
+$cari_gagal_masuk = "login failed";
+for ($i=0; $i<$TotalReg; $i++){
+	echo "<tr>";
+	echo "<td style='width:25px;white-space:nowrap;'><i>";
+			if (strpos($log[$i]['message'], $cari_masuk) !== false) {echo "<img src='/img/masuk.png' width='25px' height='25px' style='vertical-align: middle;'/><span style='vertical-align: middle;'> Masuk</span>";} 
+			if (strpos($log[$i]['message'], $cari_keluar) !== false){echo "<img src='/img/keluar.png' width='25px' height='25px' style='vertical-align: middle;'/><span style='vertical-align: middle;'> Keluar</span>";}
+			if (strpos($log[$i]['message'], $cari_gagal_masuk) !== false){echo "<img src='/img/gagal.png' width='25px' height='25px' style='vertical-align: middle;'/><span style='vertical-align: middle;'> Gagal</span>";}
+	echo "</i></td>";
+	echo "<td>" . $log[$i]['time'];echo "</td>";
+	echo "<td>" . $log[$i]['message'];echo "</td>";
+	echo "</tr>";
+	}
 ?>
-                  </textarea>
+						</tbody>
+	</table>
+	<!-- End Rainbow Table -->
+                  </div>
                 </div>
               </div>
             </div>
