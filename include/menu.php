@@ -173,14 +173,14 @@ if($hotspot == "dashboard"){
  <div class="navbar-right">
   <a href="./app.php?hotspot=logout&session=<?php echo $session;?>" ><i class="fa fa-sign-out mr-1"></i> Logout</a>
 
-  <select style="float: right; border: none; background-color: #3a4149; font-size: 14px;" class="text-light text-right mr-t-10 pd-5" onchange="location = this.value;">
+  <select style="float: right; border: none; background-color: #4dbd74; font-size: 14px;" class="text-light text-right mr-t-10 pd-5" onchange="location = this.value;">
   <option><?php echo $hotspotname;?></option>
       <?php
           foreach(file('./include/config.php') as $line) {
             $value = explode("'",$line)[1];
             if ($value == "" || $value == "mikhmon") {
             }else{
-            echo '<option value="app.php?hotspot=dashboard&session='.$value.'">'.$value.'</option>';
+            echo '<option style="background-color:#ffc107;" value="app.php?hotspot=dashboard&session='.$value.'">'.$value.'</option>';
             }
           }
       ?>
